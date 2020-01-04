@@ -21,7 +21,7 @@ Route::get('/', 'Controller@index');
 Route::get('practice', function () {
 //    return view('/practice/Less-1/index');
     return File::get(public_path() . '/practice/index.html');
-
 });
 
+Route::any('/checkAlive', 'Controller@checkAlive');
 

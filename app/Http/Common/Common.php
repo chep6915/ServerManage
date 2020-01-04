@@ -53,17 +53,20 @@ function getRealIp()
  * Date            2019/12/19 01:11:20
  * Author          Rex
  */
-function getTxtContent($txtfile){
-    if(!file_exists($txtfile))return 'file not exist';
-    $file = @fopen($txtfile,'r');
+function getTxtContent($txtfile)
+{
+    if (!file_exists($txtfile)) return 'file not exist';
+    $file = @fopen($txtfile, 'r');
     $content = array();
-    if(!$file){
+    if (!$file) {
         return 'file open fail';
-    }else{
+    } else {
         $i = 0;
-        while (!feof($file)){
-            $content[$i] = mb_convert_encoding(fgets($file),"UTF-8","GBK,ASCII,ANSI,UTF-8");
-            $i++ ;
+        while (!feof($file)) {
+            $content[$i] = mb_convert_encoding(fgets($file), "UTF-8", "GBK,ASCII,ANSI,UTF-8");
+            $qian=array("\t","\n","\r");$hou=array("","","");
+            $content[$i] = str_replace($qian,$hou,$content[$i]);
+            $i++;
         }
         fclose($file);
         $content = array_filter($content); //数组去空
@@ -80,14 +83,16 @@ function getTxtContent($txtfile){
 * 当前目录下的档案
 * @ return string $content  文件夹内容
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-function getinstring($string="",$beforestring="",$afterstring=""){
+function getinstring($string = "", $beforestring = "", $afterstring = "")
+{
     //debug
-    // echo strpos($string,$beforestring)+strlen($beforestring).PHP_EOL;        //firstcut
-    // echo strpos(substr($string,strpos($string,$beforestring)+strlen($beforestring)),$afterstring).PHP_EOL;       //lastcut
-    $firstcut = strpos($string,$beforestring)===FALSE? "":strpos($string,$beforestring)+strlen($beforestring);
-    if(empty($firstcut)){
-        return ;
-    }else{
-        return substr($string,strpos($string,$beforestring)+strlen($beforestring),strpos(substr($string,strpos($string,$beforestring)+strlen($beforestring)),$afterstring));
+//     echo strpos($string,$beforestring)+strlen($beforestring).PHP_EOL;        //firstcut
+//     echo strpos(substr($string,strpos($string,$beforestring)+strlen($beforestring)),$afterstring).PHP_EOL;       //lastcut
+    $firstcut = strpos($string, $beforestring) === FALSE ? "" : strpos($string, $beforestring) + strlen($beforestring);
+    if (empty($firstcut)) {
+        return;
+    } else {
+        return substr($string, strpos($string, $beforestring) + strlen($beforestring), strpos(substr($string, strpos($string, $beforestring) + strlen($beforestring)), $afterstring));
     }
 }
+

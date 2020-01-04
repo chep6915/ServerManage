@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Common\HttpHelper;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use App\Model\Common\ParamValidator;
+use Illuminate\Http\Request;
+
 
 class Controller extends BaseController
 {
@@ -13,9 +17,7 @@ class Controller extends BaseController
 
     public function __construct()
     {
-        exit;
-
-
+        return 1;
 
         //182.18.206.160
         $ip = getRealIp();//130.105.248.52
@@ -24,7 +26,7 @@ class Controller extends BaseController
         ///Users/Rex/Documents/private_project/servermanage/servermanage/app/Http/Controllers/applicationHost.config
 
         //iis配置文檔服務器1Mac
-        $iisconfig = implode(" ", (getTxtContent(__DIR__."/applicationHost.config")));
+        $iisconfig = implode(" ", (getTxtContent(__DIR__ . "/applicationHost.config")));
 
 //iis配置文檔Windows2008
 // $iisconfig = implode(" ",(getTxtcontent("D:/applicationHost.config")));
@@ -71,8 +73,6 @@ class Controller extends BaseController
 //            $rs = $odb->insert('website', $webarray);
 
 
-
-
             // if($key==514){
             //     $sitedomain=getinstring($val,"site name=\"","\"");
             //     $sitedomain=(strpos($sitedomain,"www")!==false)? $sitedomain:"www.".$sitedomain;
@@ -101,5 +101,48 @@ class Controller extends BaseController
 
 // echo json_encode($iisconfig);
         exit;
+    }
+
+    function checkAlive()
+    {
+//        return csrf_token();
+
+        $request = Request();
+
+        if ($request->post('mode') != 'local') {
+            //網頁模式
+            $rule = [
+                'url' => [
+                    'required|active_url',
+                ]
+
+            ];
+            $data = $request->post();
+        }else{
+            //本地模式
+            $rule = [
+                'url' => 'required',
+                'url.*' =>
+                    'required|active_url'
+                ,
+            ];
+            $data['url'] = getTxtContent(public_path() . DIRECTORY_SEPARATOR.'data'.DIRECTORY_SEPARATOR.'url.txt');
+        }
+
+        $validator = ParamValidator::validateData($data, $rule);
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+            echo $errors->first();
+            exit;
+        }else{
+            HttpHelper::ai_curl($data['url']);
+        }
+
+
+//        echo Lang::get('auth.failed');
+//        echo Lang::get('auth.failed');
+//        echo trans('auth.failed');
+
+//        $file = __ROOT__."/Public/Home/xxx.md";
     }
 }
