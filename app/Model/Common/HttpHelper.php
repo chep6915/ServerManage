@@ -3,7 +3,7 @@
 namespace App\Model\Common;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Facades\Log;
 
 class HttpHelper extends Model
 {
@@ -29,7 +29,7 @@ class HttpHelper extends Model
             curl_setopt($ch, CURLOPT_CERTINFO, 0);
             curl_setopt($ch, CURLOPT_CONNECT_ONLY, 0);
             curl_setopt($ch, CURLOPT_CRLF, NULL);
-            curl_setopt($ch, CURLOPT_DNS_USE_GLOBAL_CACHE, 0);
+//            curl_setopt($ch, CURLOPT_DNS_USE_GLOBAL_CACHE, 0);      //Windows下会0出错Mac不会
             curl_setopt($ch, CURLOPT_FAILONERROR, 0);
 //    curl_setopt($ch,CURLOPT_SSL_,1);
             curl_setopt($ch, CURLOPT_FILETIME, 0);
@@ -221,7 +221,8 @@ class HttpHelper extends Model
             $httpInfo = array_merge($httpInfo, curl_getinfo($ch));
 sleep(1);
 //            socket_set_timeout(10);
-            echo $httpCode.'====='.$val.curl_error($ch).PHP_EOL;
+            Log::info($httpCode.'====='.$val.curl_error($ch).PHP_EOL);
+//            echo $httpCode.'====='.$val.curl_error($ch).PHP_EOL;
         }
         //关闭cURL资源，并且释放系统资源
         curl_close($ch);
@@ -230,7 +231,7 @@ sleep(1);
 //    $rs = getinstring($rs, "class=\"nroffsh\">DEFAULT</h2>
 //<p class=\"level0\">", "<a name=\"PROTOCOLS\">");
 
-        sleep(1);
+        sleep(0.5);
 
         exit;
 

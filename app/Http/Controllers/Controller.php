@@ -105,11 +105,17 @@ class Controller extends BaseController
 
     function checkAlive()
     {
+        //baidu
+        //123.125.71.70
+        echo gethostbyaddr('123.125.71.70');
+//        echo gethostbyname('61.146.178.32');
+//        echo json_encode(dns_get_record('123.125.71.70'));
+        exit;
 //        return csrf_token();
 
         $request = Request();
 
-        if ($request->post('mode') != 'local') {
+        if ($request->post('mode') == 'remote') {
             //網頁模式
             $rule = [
                 'url' => [

@@ -1,5 +1,5 @@
 <?php
-
+set_time_limit(0);  //设定执行时间无限
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,6 +11,7 @@
 |
 */
 
+//extension=php_fileinfo.dll
 //Route::get('/', function () {
 //    return view('welcome');
 //});
@@ -23,5 +24,18 @@ Route::get('practice', function () {
     return File::get(public_path() . '/practice/index.html');
 });
 
-Route::any('/checkAlive', 'Controller@checkAlive');
+//检查网站状态是否200请将清单放置于public/data/url.txt
+Route::any('/checkalive', 'Controller@checkAlive');
+
+//日志分析_旧
+Route::get('/analyselog',function(){
+    return view('/analyseLog/index');
+});
+
+//日志分析_新
+Route::get('/analyselog_new',function(){
+    return view('/analyseLog_new/index');
+});
+
+Route::post('/analyselog','AnalyseLogController@analyseLog');
 
