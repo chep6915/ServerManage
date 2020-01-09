@@ -10,29 +10,48 @@ class AnalyseLogController extends Controller
 
     public function  analyseLog(){
 
-        $request= Request();
-        $rule = [
-            'file' => 'required|file|mimes:txt,log'
-        ];
+//        $request= Request();
+//        $rule = [
+//            'file' => 'required|file|mimes:txt,log'
+//        ];
+//
+//        $validator = ParamValidator::validateData($request->file(), $rule);
+//        if ($validator->fails()) {
+//            return('错误格式');
+//        }
+//
+//        $file = $request->file('file');
+//
+//        if ($file->isValid()) {
+//            //判断是否上传成功
+//            if (!$file->move(public_path().'\data\weblog',$file->getClientOriginalName())) {
+//                return('上传失败');
+//            }else{
+//
+//                $file = getTxtContent($file["tmp_name"]);
+//
+                $file = getTxtContent(public_path() . DIRECTORY_SEPARATOR.'data'.DIRECTORY_SEPARATOR.'weblog'.DIRECTORY_SEPARATOR.'cmsmov.log');
+                foreach ($file as $key => $val){
+                    $pattern = '/^([^ ]+) ([^ ]+) ([^ ]+) \[([^\]]+)\] "(.*) (.*) (.*)" ([0-9\-]+) ([0-9\-]+) "(.*)" "(.*)" \*\*([0-9]*)\/([0-9]*)\*\*$/';
+                    preg_match($pattern,$val,$matches);
+                    echo json_encode($matches);exit;
+                    $data = explode(' ',$val);
+                    $rs[$key]['ip'] = $val[0];
+                    foreach ($data as $key1 => $val){
+                        echo $key1.'===='.$val.'<br>';
+                    }exit;
+                }
 
-        $validator = ParamValidator::validateData($request->file(), $rule);
-        if ($validator->fails()) {
-            return('错误格式');
-        }
 
-        $file = $request->file('file');
 
-        if ($file->isValid()) {
-            //判断是否上传成功
-            if (!$file->move(public_path().'\data\weblog',$file->getClientOriginalName())) {
-                return('上传失败');
-            }else{
-                
-                $file = getTxtContent($file["tmp_name"]);
+                foreach ($data as $key =>$val){
+                    $rs[$key]['ip'] = $val[0];
+                }
+                echo $data[0];exit;
                 var_dump($file);exit;
-            }
-        }
-        exit;
+//            }
+//        }
+//        exit;
 
     }
 

@@ -151,4 +151,8 @@ class Controller extends BaseController
 
 //        $file = __ROOT__."/Public/Home/xxx.md";
     }
+
+    public function index(){
+//        return csrf_token();
+    }
 }

@@ -9,7 +9,6 @@
         <link href="http://www.loghao.com/favicon.ico" rel="shortcut icon" type="image/x-icon" />
         <link href="{{asset('/view/analyseLog/css/2014.css')}}" type="text/css" rel="stylesheet" />
         <script type="text/javascript" src="{{ asset('/view/common/js/jquery-3.4.1.min.js') }}"></script>
-        <script language="javascript" src="{{ asset('/view/analyseLog_new/js/mine.js') }}"></script>
     </head>
     <body>
     <div class="header">
@@ -120,6 +119,7 @@
             </div>
         </div>
     </div>
-    <script language="javascript" src="{{ asset('/view/analyseLog/js/1.js') }}"></script>
+
+    <script language="javascript" src="{{ asset('/view/analyseLog_new/js/mine.js') }}"></script>
     </body>
 </html>
