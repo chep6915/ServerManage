@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 class AnalyseLogController extends Controller
 {
 
-    public function  analyseLog(){
-
+    public function analyseLog()
+    {
 //        $request= Request();
 //        $rule = [
 //            'file' => 'required|file|mimes:txt,log'
@@ -30,43 +30,48 @@ class AnalyseLogController extends Controller
 //
 //                $file = getTxtContent($file["tmp_name"]);
 //
-                $file = getTxtContent(public_path() . DIRECTORY_SEPARATOR.'data'.DIRECTORY_SEPARATOR.'weblog'.DIRECTORY_SEPARATOR.'cmsmov.log');
-                foreach ($file as $key => $val){
-                    $pattern = '/^([^ ]+) ([^ ]+) ([^ ]+) \[([^\]]+)\] "(.*) (.*) (.*)" ([0-9\-]+) ([0-9\-]+) "(.*)" "(.*)" \*\*([0-9]*)\/([0-9]*)\*\*$/';
-                    preg_match($pattern,$val,$matches);
-                    echo json_encode($matches);exit;
-                    $data = explode(' ',$val);
-                    $rs[$key]['ip'] = $val[0];
-                    foreach ($data as $key1 => $val){
-                        echo $key1.'===='.$val.'<br>';
-                    }exit;
+
+//        $file = getTxtContent(public_path() . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . 'weblog' . DIRECTORY_SEPARATOR . 'cmsmov.log');
+
+        $parser = new \Kassner\LogParser\LogParser();
+        //寶塔apache預設格式
+        $parser->setFormat('%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\"');
+        $lines = file(public_path() . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . 'weblog' . DIRECTORY_SEPARATOR . 'cmsmov.log', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        foreach ($lines as $line) {
+            $entry[] = $parser->parse($line);
+        }
+
+        foreach ($entry as $key => $val) {
+            foreach ($val as $key1 => $val1) {
+                if($key1=='time'){
+                    $val1 = date('Y-m-d H:i:s',strtotime($val1));
                 }
+                echo $key1 . '====' . $val1 . '<br>';
+            }
+            exit;
+        }
 
 
-
-                foreach ($data as $key =>$val){
-                    $rs[$key]['ip'] = $val[0];
-                }
-                echo $data[0];exit;
-                var_dump($file);exit;
+        exit;
 //            }
 //        }
 //        exit;
 
     }
 
-    public function uploadApi(){
+    public function uploadApi()
+    {
         // 获取文件
         $file = request()->file('image');
-        if($file){
+        if ($file) {
             // 校验数组
-            $validateArr = [ 'ext' => 'jpg,jpeg,gif,png,bmp' ];
+            $validateArr = ['ext' => 'jpg,jpeg,gif,png,bmp'];
             // 文件的本地存储路径
             $path = ROOT_PATH . 'public' . DS . 'upload';
             // 校验并移动
             $info = $file->validate($validateArr)->move($path);
             // 检查移动结果
-            if($info){
+            if ($info) {
                 // 上传成功
 
                 // 输出 jpg
@@ -83,29 +88,29 @@ class AnalyseLogController extends Controller
                 $sourceName = $sourceInfo['name'];
 
                 // 拼装url
-                $url = '/upload/'.$info->getSaveName();
+                $url = '/upload/' . $info->getSaveName();
                 $url = str_replace('\\', '/', $url); // Windows下替换路径分隔符
 
                 // other some operations ...
 
                 // 返回json，告知客户端上传结果
                 $json = json_encode([
-                    'errcode'   => '10000',
-                    'errmsg'    => 'Upload success',
-                    'data'      => [ 'url' => $url ]
+                    'errcode' => '10000',
+                    'errmsg' => 'Upload success',
+                    'data' => ['url' => $url]
                 ]);
-            }else{
+            } else {
                 // 上传失败，返回json，告知客户端
                 $json = json_encode([
-                    'errcode'   => '20002',
-                    'errmsg'    => 'Upload failed',
+                    'errcode' => '20002',
+                    'errmsg' => 'Upload failed',
                 ]);
             }
-        }else{
+        } else {
             // 未上传文件
             $json = json_encode([
-                'errcode'   => '20001',
-                'errmsg'    => 'File not uploaded',
+                'errcode' => '20001',
+                'errmsg' => 'File not uploaded',
             ]);
         }
         return $json;

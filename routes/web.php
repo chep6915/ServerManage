@@ -28,9 +28,12 @@ Route::get('practice', function () {
 Route::any('/checkalive', 'Controller@checkAlive');
 
 //日志分析_旧
-Route::get('/analyselog',function(){
-    return view('/analyseLog/index');
-});
+//Route::get('/analyselog',function(){
+//    return view('/analyseLog/index');
+//});
+
+//本地日誌分析上傳mysql
+Route::get('/analyselog','AnalyseLogController@analyseLog');
 
 //日志分析_新
 Route::get('/analyselog_new',function(){

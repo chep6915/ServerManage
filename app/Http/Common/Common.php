@@ -79,8 +79,6 @@ function getTxtContent($txtfile)
 * @ param  string $string           字串
 * @ param  string $beforestring     前字串
 * @ param  string $afterstring      后字串
-* example: __DIR__.'/datatxt.txt'
-* 当前目录下的档案
 * @ return string $content  文件夹内容
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 function getinstring($string = "", $beforestring = "", $afterstring = "")
@@ -94,5 +92,17 @@ function getinstring($string = "", $beforestring = "", $afterstring = "")
     } else {
         return substr($string, strpos($string, $beforestring) + strlen($beforestring), strpos(substr($string, strpos($string, $beforestring) + strlen($beforestring)), $afterstring));
     }
+}
+
+/*----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 分析apache日誌
+* @ param  string $string           字串
+* @ param  string $beforestring     前字串
+* @ param  string $afterstring      后字串
+* @ return string $content  文件夹内容
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+function splitApacheLog($string = "")
+{
+
 }
 
