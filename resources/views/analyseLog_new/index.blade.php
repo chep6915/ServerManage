@@ -119,7 +119,7 @@
             </div>
         </div>
     </div>
-
+    <script language="javascript" src="{{ asset('/view/analyseLog/js/fugaitishi.js') }}"></script>
     <script language="javascript" src="{{ asset('/view/analyseLog_new/js/mine.js') }}"></script>
     </body>
 </html>

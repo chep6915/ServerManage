@@ -155,4 +155,23 @@ class Controller extends BaseController
     public function index(){
 //        return csrf_token();
     }
+
+    public function test(){
+        $test[0]['id'] = 1;
+        $test[0]['name'] = 'john';
+        $test[1]['id'] = 2;
+        $test[1]['name'] = 'tom';
+        $test[2]['id'] = 3;
+        $test[2]['name'] = 'marry';
+        $test[3]['id'] = 4;
+        $test[3]['name'] = 'jay';
+        $test[4]['id'] = 5;
+        $test[4]['name'] = 'john';
+
+        $tempArr = array_unique(array_column($test, 'name'));
+        $spider2 = array_intersect_key($test, $tempArr);
+
+        echo json_encode($spider2);exit;
+
+    }
 }

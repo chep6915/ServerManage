@@ -17,6 +17,7 @@ set_time_limit(0);  //设定执行时间无限
 //});
 
 Route::get('/', 'Controller@index');
+Route::get('/test', 'Controller@test');
 
 //Route::get('/practice/1', 'practice\Less-1');
 Route::get('practice', function () {
@@ -39,6 +40,7 @@ Route::get('/analyselog','AnalyseLogController@analyseLog');
 Route::get('/analyselog_new',function(){
     return view('/analyseLog_new/index');
 });
+Route::post('/checkrealspider','AnalyseLogController@checkrealspider');
 
 Route::post('/analyselog','AnalyseLogController@analyseLog');
 
