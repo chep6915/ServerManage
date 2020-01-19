@@ -34,13 +34,13 @@ Route::any('/checkalive', 'Controller@checkAlive');
 //});
 
 //本地日誌分析上傳mysql
-Route::get('/analyselog','AnalyseLogController@analyseLog');
+Route::get('/analyselog','WebLogController@analyseLog');
 
 //日志分析_新
 Route::get('/analyselog_new',function(){
     return view('/analyseLog_new/index');
 });
-Route::post('/checkrealspider','AnalyseLogController@checkrealspider');
+Route::post('/checkrealspider','WebLogController@checkrealspider');
 
-Route::post('/analyselog','AnalyseLogController@analyseLog');
+Route::post('/analyselog','WebLogController@analyseLog');
 

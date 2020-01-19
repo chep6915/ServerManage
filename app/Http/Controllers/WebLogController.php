@@ -8,7 +8,7 @@ use App\Model\Data\web_log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class AnalyseLogController extends Controller
+class WebLogController extends Controller
 {
 
     public function analyseLog()
