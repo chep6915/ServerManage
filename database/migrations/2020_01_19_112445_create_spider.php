@@ -20,6 +20,7 @@ class CreateSpider extends Migration
             $table->string('spider_type')->nullable()->comment('搜索引擎蜘蛛類型');
             $table->string('isreal')->default(0)->comment('是否為真實蜘蛛');
             $table->string('check_isreal_time')->nullable()->comment('確認為真實蜘蛛時間');
+            $table->string('host_name')->nullable()->comment('蜘蛛hostname');
             $table->timestamps();
         });
     }

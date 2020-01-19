@@ -16,7 +16,7 @@ class WebLogController extends Controller
 
         $request= Request();
         $rule = [
-            'file' => 'required|file|mimes:txt,log|max:10240'
+            'file' => 'required|file|mimes:txt,log|max:20480'
         ];
 
         $validator = ParamValidator::validateData($request->file(), $rule);
@@ -163,6 +163,43 @@ class WebLogController extends Controller
             spider::insertOrIgnore($spider);
         }
         return '成功上傳';
+    }
+
+    public function checkIsRealSpider(){
+//        $spiderlist = DB::table('spider')->get();
+//        $spiderlist = DB::table('spider')->whereNull('host_name');
+        $spiderlist = spider::all();
+//        $spiderlist = spider::
+//        $spiderlist = spider::where('host_name', '<>', '2');
+//        $spiderlist = spider::where_not_null('host_name');
+
+//update spider set `check_isreal_time` = NULL , isreal =0
+        foreach ($spiderlist as $spider)
+        {
+
+            $hostnames = $spider->host_name;
+            $spiders = $spider->spider;
+            $strpos = strpos($hostnames,$spiders);
+
+//            echo $spider->host_name.'<br>';
+//            echo $spider->spider.'<br>';
+//            echo $strpos.'<br>';
+//            echo ($strpos!==false).'<br>';
+//            if($spider->host_name='14.215.176.142'){
+//
+//            }
+
+            if($strpos!==false){
+                $spider->check_isreal_time = date('Y-m-d H:i:s');
+                $spider->isreal = 1;
+            }
+
+//            $spider->host_name = gethostbyaddr($spider->spider_ip);
+//            $spider->host_name = gethostbyaddr($spider->spider_ip);
+//
+            $spider->save();
+        }
+
     }
 
 

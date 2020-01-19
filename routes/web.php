@@ -40,7 +40,7 @@ Route::get('/analyselog','WebLogController@analyseLog');
 Route::get('/analyselog_new',function(){
     return view('/analyseLog_new/index');
 });
-Route::post('/checkrealspider','WebLogController@checkrealspider');
+Route::post('/checkisrealspider','WebLogController@checkIsRealSpider');
 
 Route::post('/analyselog','WebLogController@analyseLog');
 
