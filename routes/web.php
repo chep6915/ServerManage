@@ -16,7 +16,14 @@ set_time_limit(0);  //设定执行时间无限
 //    return view('welcome');
 //});
 
-Route::get('/', 'Controller@index');
+//main主要畫面區
+Route::get('/',function(){
+    return view('main');
+});
+
+
+//Route::get('/', 'Controller@index');
+Route::get('/csrf', 'Controller@csrf');
 Route::get('/test', 'Controller@test');
 
 //Route::get('/practice/1', 'practice\Less-1');

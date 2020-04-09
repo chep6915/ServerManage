@@ -176,7 +176,7 @@ class WebLogController extends Controller
 //update spider set `check_isreal_time` = NULL , isreal =0
         foreach ($spiderlist as $spider)
         {
-
+            $spider->host_name = gethostbyaddr($spider->spider_ip);
             $hostnames = $spider->host_name;
             $spiders = $spider->spider;
             $strpos = strpos($hostnames,$spiders);
